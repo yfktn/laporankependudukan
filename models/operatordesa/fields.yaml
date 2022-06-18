@@ -1,0 +1,9 @@
+fields:
+    # desa_id:
+    #     label: 'Desa id'
+    #     span: auto
+    #     type: relation
+    user_id:
+        label: 'User id'
+        span: auto
+        type: dropdown

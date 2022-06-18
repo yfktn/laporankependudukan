@@ -1,0 +1,18 @@
+columns:
+    # desa_id:
+    #     label: desa_id
+    #     type: number
+    #     searchable: true
+    usernya:
+        label: Operator Desa
+        relation: user
+        select: concat(first_name, ' ', last_name, ' ', email)
+        searchable: true
+    created_at:
+        label: created_at
+        type: datetime
+        invisible: true
+    updated_at:
+        label: updated_at
+        type: datetime
+        invisible: true

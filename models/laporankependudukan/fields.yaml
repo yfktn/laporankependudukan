@@ -1,0 +1,39 @@
+fields:
+    desa:
+        label: 'Desa Dicatatkan'
+        nameFrom: name
+        descriptionFrom: description
+        emptyOption: 'Pilih Desa'
+        span: full
+        required: 1
+        type: relation
+        select: nama
+        comment: 'Pilih data desa yang ingin dicatatkan.'
+    periode_bulan:
+        label: 'Periode Bulan'
+        showSearch: true
+        span: auto
+        emptyOption: 'Pilih bulan'
+        type: dropdown
+        comment: 'Periode bulan pencatatan.'
+    periode_tahun:
+        label: 'Periode Tahun'
+        emptyOption: 'Pilih tahun.'
+        showSearch: true
+        span: auto
+        type: dropdown
+        comment: 'Periode tahun pencatatan.'
+    section1:
+        label: 'Simpan terlebih dahulu untuk menampilkan Fasilitas pencatatan.'
+        span: full
+        context:
+            - create
+        type: section
+    laporanKependudukanDiRtRw:
+        label: 'Pencatatan Jumlah Di RT/RW'
+        path: $/yfktn/laporankependudukan/controllers/laporankependudukan/_render_pencatatanJumlahRtRw.htm
+        span: full
+        context:
+            - update
+            - preview
+        type: partial

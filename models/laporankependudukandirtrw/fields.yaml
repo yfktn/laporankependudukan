@@ -1,0 +1,106 @@
+fields:
+    nama_rtrw:
+        label: 'Nama RT/RW'
+        comment: Selalu konsisten dalam penamaan untuk memudahkan proses pelaporan.
+        span: full
+        type: text
+tabs:
+    fields:
+        hint2:
+            label: 'Untuk pengisian jumlah:'
+            span: full
+            path: $/yfktn/laporankependudukan/models/laporankependudukandirtrw/_hint_awas.htm
+            type: partial
+            tab: Pencatatan
+        section1:
+            label: 'Jumlah Kelahiran'
+            span: full
+            type: section
+            tab: Pencatatan
+        jumlah_lahir_laki:
+            label: 'Jumlah Lahir Laki-Laki'
+            span: auto
+            type: number
+            default: 0
+            tab: Pencatatan
+        jumlah_lahir_perempuan:
+            label: 'Jumlah Lahir Perempuan'
+            span: auto
+            type: number
+            default: 0
+            tab: Pencatatan
+        section2:
+            label: 'Jumlah Kematian'
+            span: full
+            type: section
+            tab: Pencatatan
+        jumlah_mati_laki:
+            label: 'Jumlah Mati Laki-Laki'
+            span: auto
+            type: number
+            default: 0
+            tab: Pencatatan
+        jumlah_mati_perempuan:
+            label: 'Jumlah Mati Perempuan'
+            span: auto
+            type: number
+            default: 0
+            tab: Pencatatan
+        section3:
+            label: 'Jumlah Pendatang'
+            span: full
+            type: section
+            tab: Pencatatan
+        jumlah_pendatang_laki:
+            label: 'Jumlah Pendatang Laki-Laki'
+            span: auto
+            type: number
+            default: 0
+            tab: Pencatatan
+        jumlah_pendatang_perempuan:
+            label: 'Jumlah Pendatang Perempuan'
+            span: auto
+            type: number
+            default: 0
+            tab: Pencatatan
+        section4:
+            label: 'Jumlah Kepindahan'
+            span: full
+            type: section
+            tab: Pencatatan
+        jumlah_pindah_laki:
+            label: 'Jumlah Pindah Laki-Laki'
+            span: auto
+            type: number
+            default: 0
+            tab: Pencatatan
+        jumlah_pindah_perempuan:
+            label: 'Jumlah Pindah Perempuan'
+            span: auto
+            type: number
+            default: 0
+            tab: Pencatatan
+        hint1:
+            label: 'Tentang isian ini'
+            span: full
+            path: $/yfktn/laporankependudukan/models/laporankependudukandirtrw/_hint.htm
+            type: partial
+            tab: 'Jumlah Awal'
+        jumlah_awal_kk:
+            label: 'Jumlah Awal KK'
+            span: full
+            type: number
+            default: 0
+            tab: 'Jumlah Awal'
+        jumlah_awal_laki:
+            label: 'Jumlah Awal Laki-Laki'
+            span: auto
+            type: number
+            default: 0
+            tab: 'Jumlah Awal'
+        jumlah_awal_perempuan:
+            label: 'Jumlah Awal Perempuan'
+            span: auto
+            type: number
+            default: 0
+            tab: 'Jumlah Awal'

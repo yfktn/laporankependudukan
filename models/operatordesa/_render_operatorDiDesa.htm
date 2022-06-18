@@ -1,0 +1,8 @@
+<?php if($record->operatorDesa->count() > 0): ?>
+    <ul class="list-unstyled">
+    <?php foreach($record->operatorDesa as $op): ?>
+        <li>&raquo; <?= ucwords($op->user->first_name) ?> <?= ucwords($op->user->last_name) ?></li>
+    <?php endforeach ?>
+    </ul>
+<?php else: ?>
+<?php endif ?>

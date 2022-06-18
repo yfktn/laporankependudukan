@@ -1,0 +1,48 @@
+columns:
+    nama_rtrw:
+        label: nama_rtrw
+        type: text
+    # laporan_kependudukan_id:
+    #     label: laporan_kependudukan_id
+    #     type: number
+    jumlah_awal_kk:
+        label: jumlah_awal_kk
+        type: number
+    jumlah_awal_laki:
+        label: jumlah_awal_laki
+        type: number
+    jumlah_awal_perempuan:
+        label: jumlah_awal_perempuan
+        type: number
+    jumlah_lahir_laki:
+        label: jumlah_lahir_laki
+        type: number
+    jumlah_lahir_perempuan:
+        label: jumlah_lahir_perempuan
+        type: number
+    jumlah_mati_laki:
+        label: jumlah_mati_laki
+        type: number
+    jumlah_mati_perempuan:
+        label: jumlah_mati_perempuan
+        type: number
+    jumlah_pendatang_laki:
+        label: jumlah_pendatang_laki
+        type: number
+    jumlah_pendatang_perempuan:
+        label: jumlah_pendatang_perempuan
+        type: number
+    jumlah_pindah_laki:
+        label: jumlah_pindah_laki
+        type: number
+    jumlah_pindah_perempuan:
+        label: jumlah_pindah_perempuan
+        type: number
+    created_at:
+        label: created_at
+        type: datetime
+        invisible: true
+    updated_at:
+        label: updated_at
+        type: datetime
+        invisible: true

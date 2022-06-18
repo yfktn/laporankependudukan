@@ -1,0 +1,25 @@
+columns:
+    desa:
+        label: Nama Desa
+        relation: desa
+        select: nama
+        searchable: true
+    periode_bulan:
+        label: Periode Bulan
+        type: partial
+        path: $/yfktn/laporankependudukan/models/laporankependudukan/_bulan_indonesia.htm
+        sortable: true
+    periode_tahun:
+        label: periode_tahun
+        type: number
+        sortable: true
+    created_at:
+        label: 'Dibuat pada'
+        type: datetime
+        invisible: true
+        format: 'd-m-Y H:i:s'
+    updated_at:
+        label: 'Diupdate pada'
+        type: datetime
+        invisible: true
+        format: 'd-m-Y H:i:s'

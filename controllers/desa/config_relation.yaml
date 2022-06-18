@@ -1,0 +1,14 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+operatorDesa:
+    label: Pemilihan Operator Desa
+    view:
+        list: $/yfktn/laporankependudukan/models/operatordesa/columns.yaml
+        toolbarButtons: 
+            create: Tambahkan Operator Desa
+            delete: Hapus Operator Desa
+    manage:
+        form: $/yfktn/laporankependudukan/models/operatordesa/fields.yaml
+        recordsPerPage: 10

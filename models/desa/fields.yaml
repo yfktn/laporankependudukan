@@ -1,0 +1,27 @@
+fields:
+    nama:
+        label: 'Nama Desa'
+        span: full
+        required: 1
+        type: text
+    keterangan:
+        label: Keterangan
+        size: small
+        span: full
+        type: textarea
+        comment: 'isikan keterangan jika dibutuhkan.'
+    section1:
+        label: 'Simpan terlebih dahulu untuk melanjutkan dengan pemilihan operator Desa.'
+        span: full
+        context:
+            - create
+        type: section
+    operatorDesa:
+        label: 'Pemilihan Operator Desa'
+        path: $/yfktn/laporankependudukan/controllers/desa/_render_operatorDesa.htm
+        span: full
+        context:
+            - update
+            - preview
+        type: partial
+

@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Laporan Kependudukan
+
+# Model Form Field configuration
+form: $/yfktn/laporankependudukan/models/laporankependudukan/fields.yaml
+
+# Model Class name
+modelClass: Yfktn\LaporanKependudukan\Models\LaporanKependudukan
+
+# Default redirect location
+defaultRedirect: yfktn/laporankependudukan/laporankependudukan
+
+# Create page
+create:
+    title: backend::lang.form.create_title
+    redirect: yfktn/laporankependudukan/laporankependudukan/update/:id
+    redirectClose: yfktn/laporankependudukan/laporankependudukan
+
+# Update page
+update:
+    title: backend::lang.form.update_title
+    redirect: yfktn/laporankependudukan/laporankependudukan
+    redirectClose: yfktn/laporankependudukan/laporankependudukan
+
+# Preview page
+preview:
+    title: backend::lang.form.preview_title

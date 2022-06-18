@@ -1,0 +1,13 @@
+1.0.1: 'First version of LaporanKependudukan'
+1.0.2:
+    - 'Created table yfktn_laporankependudukan_desa'
+    - builder_table_create_yfktn_laporankependudukan_desa.php
+1.0.3:
+    - 'Created table yfktn_laporankependudukan_'
+    - builder_table_create_yfktn_laporankependudukan_.php
+1.0.4:
+    - 'Created table yfktn_laporankependudukan_rtrw'
+    - builder_table_create_yfktn_laporankependudukan_rtrw.php
+1.0.5:
+    - 'Created table yfktn_laporankependudukan_operator_desa'
+    - builder_table_create_yfktn_laporankependudukan_operator_desa.php

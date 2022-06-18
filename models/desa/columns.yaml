@@ -1,0 +1,15 @@
+columns:
+    nama:
+        label: nama
+        type: text
+        searchable: true
+        sortable: true
+    operator_desanya:
+        label: Operator Desa
+        type: partial
+        path: $/yfktn/laporankependudukan/models/operatordesa/_render_operatorDiDesa.htm
+    keterangan:
+        label: keterangan
+        type: text
+        searchable: true
+    

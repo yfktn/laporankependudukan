@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Desa
+
+# Model Form Field configuration
+form: $/yfktn/laporankependudukan/models/desa/fields.yaml
+
+# Model Class name
+modelClass: Yfktn\LaporanKependudukan\Models\Desa
+
+# Default redirect location
+defaultRedirect: yfktn/laporankependudukan/desa
+
+# Create page
+create:
+    title: backend::lang.form.create_title
+    redirect: yfktn/laporankependudukan/desa/update/:id
+    redirectClose: yfktn/laporankependudukan/desa
+
+# Update page
+update:
+    title: backend::lang.form.update_title
+    redirect: yfktn/laporankependudukan/desa
+    redirectClose: yfktn/laporankependudukan/desa
+
+# Preview page
+preview:
+    title: backend::lang.form.preview_title

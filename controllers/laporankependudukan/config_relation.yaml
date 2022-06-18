@@ -1,0 +1,12 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+laporanKependudukanDiRtRw:
+    label: Pencatatan Di RT RW
+    view:
+        list: $/yfktn/laporankependudukan/models/laporankependudukandirtrw/columns.yaml
+        toolbarButtons: create|delete
+    manage:
+        form: $/yfktn/laporankependudukan/models/laporankependudukandirtrw/fields.yaml
+        recordsPerPage: 10
