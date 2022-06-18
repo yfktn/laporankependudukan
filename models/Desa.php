@@ -1,5 +1,6 @@
 <?php namespace Yfktn\LaporanKependudukan\Models;
 
+use Backend\Facades\BackendAuth;
 use Model;
 use October\Rain\Database\Traits\Sluggable;
 
@@ -35,4 +36,14 @@ class Desa extends Model
             'key' => 'desa_id'
         ]
     ];
+
+    public function scopeTampilkanSesuaiHakAkses($query)
+    {
+        $backendUser = BackendAuth::getUser();
+        if(!$backendUser->hasAnyAccess(['yfktn.laporankependudukan.adminkependudukan'])) {
+            return $query->whereHas('operatorDesa', function($query) use($backendUser)  {
+                $query->where('user_id', $backendUser->id);
+            });
+        }
+    }
 }

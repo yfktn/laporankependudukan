@@ -8,6 +8,7 @@ fields:
         required: 1
         type: relation
         select: nama
+        scope: tampilkanSesuaiHakAkses
         comment: 'Pilih data desa yang ingin dicatatkan.'
     periode_bulan:
         label: 'Periode Bulan'

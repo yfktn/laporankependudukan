@@ -2,6 +2,7 @@
 
 use BackendMenu;
 use Backend\Classes\Controller;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Laporan Kependudukan Back-end Controller
@@ -33,5 +34,14 @@ class LaporanKependudukan extends Controller
         parent::__construct();
 
         BackendMenu::setContext('Yfktn.LaporanKependudukan', 'laporankependudukan', 'laporankependudukan');
+    }
+
+    public function listExtendQuery($query) {
+        // batasi kepada user yang memiliki akses saja!\
+        if(!$this->user->hasAnyAccess(['yfktn.laporankependudukan.adminkependudukan'])) {
+            $query->whereHas('desa.operatorDesa', function(Builder $query) {
+                $query->where('user_id', $this->user->id);
+            });
+        }
     }
 }

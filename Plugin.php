@@ -69,9 +69,13 @@ class Plugin extends PluginBase
                 'tab' => 'Laporan Kependudukan',
                 'label' => 'Administrasi Desa'
             ],
+            'yfktn.laporankependudukan.adminkependudukan' => [
+                'tab' => 'Laporan Kependudukan',
+                'label' => 'Administrator Catatan Kependudukan'
+            ],
             'yfktn.laporankependudukan.kependudukan' => [
                 'tab' => 'Laporan Kependudukan',
-                'label' => 'Menambah Catatan Kependudukan'
+                'label' => 'Operator Desa Catatan Kependudukan'
             ],
         ];
     }

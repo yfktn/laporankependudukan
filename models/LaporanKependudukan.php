@@ -1,5 +1,6 @@
 <?php namespace Yfktn\LaporanKependudukan\Models;
 
+use Backend\Facades\BackendAuth;
 use Model;
 use October\Rain\Exception\ApplicationException;
 
