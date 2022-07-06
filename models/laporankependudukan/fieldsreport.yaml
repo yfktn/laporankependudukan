@@ -1,6 +1,6 @@
 fields:
     desa:
-        label: 'Desa Dicari'
+        label: 'Desa Dipilih'
         nameFrom: name
         descriptionFrom: description
         emptyOption: 'Pilih Desa/Semua Desa'
@@ -9,10 +9,10 @@ fields:
         type: relation
         select: nama
         scope: tampilkanSesuaiHakAkses
-        comment: 'Pilih data desa yang ingin dicatatkan.'
+        comment: 'Pilih data desa yang ingin dirender laporannya.'
     periode_tahun:
         label: 'Periode Tahun'
-        emptyOption: 'Pilih tahun.'
+        emptyOption: 'Pilih tahun'
         showSearch: true
         span: auto
         type: dropdown
