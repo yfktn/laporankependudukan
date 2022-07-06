@@ -9,7 +9,7 @@ $currentPeriodeBulan = 0;
 <?php if(!$tampilDownload): ?>
 <div style="text-align: right; margin-bottom: 2px;">
     <a class="btn btn-primary" 
-        href="<?= Backend::url("yfktn/laporankependudukan/renderlaporan/downloadLaporanDesaBerdasarkanPeriode/{$desaId}/{$periodeTahun}") ?>">
+        href="<?= Backend::url("yfktn/laporankependudukan/renderlaporan/downloadLaporanDesaBerdasarkanPeriode/{$periodeTahun}/{$desaId}") ?>">
         <i class="icon-file-excel-o"></i> Download Excel
     </a>
 </div>

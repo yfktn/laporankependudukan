@@ -2,6 +2,18 @@
 tr td { text-align: right; }
 tr td.label { text-align: left; }
 </style>
+<?php if(!$tampilDownload): ?>
+<div style="text-align: right; margin-bottom: 2px;">
+    <a class="btn btn-primary" 
+        href="<?= Backend::url("yfktn/laporankependudukan/renderlaporan/downloadSummaryLaporanDesa/{$periodeTahun}/{$desaId}") ?>">
+        <i class="icon-file-excel-o"></i> Download Excel
+    </a>
+</div>
+<?php endif ?>
+<h2 class="text-center">
+    Ringkasan Laporan Kependudukan Tahun <?= $periodeTahun ?><br>
+    Kecamatan Katingan Tengah Kabupaten Katingan
+</h2>
 <table class="table table-condensed">
     <thead>
         <tr>
@@ -13,11 +25,8 @@ tr td.label { text-align: left; }
             <th colspan="2">Jumlah Pendatang</th>
             <th colspan="2">Jumlah Pindah</th>
             <th colspan="2">Jumlah Akhir</th>
-            <th colspan="2">Jumlah Total</th>
         </tr>
         <tr>
-            <th>Laki</th>
-            <th>Perempuan</th>
             <th>Laki</th>
             <th>Perempuan</th>
             <th>Laki</th>
@@ -60,8 +69,6 @@ tr td.label { text-align: left; }
                 <td><?= $dataJumlah['jumlah_pindah_perempuan'] ?></td>
                 <td><?= $dataJumlah['jumlah_akhir_laki'] ?></td>
                 <td><?= $dataJumlah['jumlah_akhir_perempuan'] ?></td>
-                <td><?= $totalLaki ?></td>
-                <td><?= $totalPerempuan ?></td>
             </tr>
             <?php endforeach ?>
         <?php endforeach ?>
