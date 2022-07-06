@@ -3,6 +3,7 @@
 use Backend\Facades\BackendAuth;
 use Model;
 use October\Rain\Exception\ApplicationException;
+use Yfktn\LaporanKependudukan\Classes\PeriodeBulan;
 
 /**
  * Model
@@ -51,20 +52,12 @@ class LaporanKependudukan extends Model
     
     public function getPeriodeBulanOptions()
     {
-        return [
-            1 => 'Januari',
-            2 => 'Februari',
-            3 => 'Maret',
-            4 => 'April',
-            5 => 'Mei',
-            6 => 'Juni',
-            7 => 'Juli',
-            8 => 'Agustus',
-            9 => 'September',
-            10 => 'Oktober',
-            11 => 'Nopember',
-            12 => 'Desember'
-        ];
+        return PeriodeBulan::namaBulan();
+    }
+
+    public static function getPeriodeBulanLabel($value)
+    {
+        return PeriodeBulan::namaBulan($value);
     }
 
     public function getPeriodeTahunOptions()

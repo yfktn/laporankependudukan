@@ -1,0 +1,111 @@
+<style>
+tr th { text-align: right; }
+tr td { text-align: right; }
+tr.totals td { font-weight: bold; }
+</style>
+<?php
+$currentPeriodeBulan = 0; 
+?>
+<?php if(!$tampilDownload): ?>
+<div style="text-align: right; margin-bottom: 2px;">
+    <a class="btn btn-primary" 
+        href="<?= Backend::url("yfktn/laporankependudukan/renderlaporan/downloadLaporanDesaBerdasarkanPeriode/{$desaId}/{$periodeTahun}") ?>">
+        <i class="icon-file-excel-o"></i> Download Excel
+    </a>
+</div>
+<?php endif ?>
+<h2 class="text-center">
+    Laporan Kependudukan Per-Periode Tahun <?= $periodeTahun ?><br>
+    Desa <?= $dataMasterDesa->nama ?> Kecamatan Katingan Tengah Kabupaten Katingan
+</h2>
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th rowspan="2">RT/RW</th>
+            <th colspan="3">Jumlah Awal</th>
+            <th colspan="2">Jumlah Lahir</th>
+            <th colspan="2">Jumlah Mati</th>
+            <th colspan="2">Jumlah Pendatang</th>
+            <th colspan="2">Jumlah Pindah</th>
+            <th colspan="3">Jumlah Akhir</th>
+        </tr>
+        <tr>
+            <th>KK</th>
+            <th>Laki</th>
+            <th>Perempuan</th>
+            <th>Laki</th>
+            <th>Perempuan</th>
+            <th>Laki</th>
+            <th>Perempuan</th>
+            <th>Laki</th>
+            <th>Perempuan</th>
+            <th>Laki</th>
+            <th>Perempuan</th>
+            <th>KK</th>
+            <th>Laki</th>
+            <th>Perempuan</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($dataDesa as $data): ?>
+            <?php if($currentPeriodeBulan == 0 || $currentPeriodeBulan != $data->periode_bulan): ?>
+                <?php if($currentPeriodeBulan != 0): ?>
+                    <?php cetakTotalakhir($currentPeriodeBulan, $totals) ?>
+                <?php endif ?>
+                <?php $currentPeriodeBulan = $data->periode_bulan ?>
+                <tr>
+                    <td colspan="16" style="text-align: center; font-weight: bold;">
+                        Periode Bulan <?= \Yfktn\LaporanKependudukan\Classes\PeriodeBulan::namaBulan($currentPeriodeBulan) ?> <?= $periodeTahun ?>
+                    </td>
+                </tr>
+            <?php endif ?>
+            <tr>
+                <td><?= $data->nama_rtrw ?></td>
+                <td><?= $data->jumlah_awal_kk ?></td>
+                <td><?= $data->jumlah_awal_laki ?></td>
+                <td><?= $data->jumlah_awal_perempuan ?></td>
+                <td><?= $data->jumlah_lahir_laki ?></td>
+                <td><?= $data->jumlah_lahir_perempuan ?></td>
+                <td><?= $data->jumlah_mati_laki ?></td>
+                <td><?= $data->jumlah_mati_perempuan ?></td>
+                <td><?= $data->jumlah_pendatang_laki ?></td>
+                <td><?= $data->jumlah_pendatang_perempuan ?></td>
+                <td><?= $data->jumlah_pindah_laki ?></td>
+                <td><?= $data->jumlah_pindah_perempuan ?></td>
+                <td><?= $data->jumlah_awal_kk ?></td>
+                <td>
+                    <?= $data->jumlah_awal_laki + $data->jumlah_lahir_laki - $data->jumlah_mati_laki + $data->jumlah_pendatang_laki - $data->jumlah_pindah_laki ?>
+                </td>
+                <td>
+                    <?= $data->jumlah_awal_perempuan + $data->jumlah_lahir_perempuan - $data->jumlah_mati_perempuan + $data->jumlah_pendatang_perempuan - $data->jumlah_pindah_perempuan ?>
+                </td>
+            </tr>
+        <?php endforeach ?>
+        <?php cetakTotalakhir($currentPeriodeBulan, $totals) ?>
+    </tbody>
+</table>
+
+<?php 
+    function cetakTotalakhir($currentPeriodeBulan, $totals) { 
+        if(!isset($totals[$currentPeriodeBulan])) {
+            return;
+        }
+    ?>
+        <tr class="totals">
+            <td>Total</td>
+            <td><?= $totals[$currentPeriodeBulan]['total_awal_kk'] ?></td>
+            <td><?= $totals[$currentPeriodeBulan]['total_awal_laki'] ?></td>
+            <td><?= $totals[$currentPeriodeBulan]['total_awal_perempuan'] ?></td>
+            <td><?= $totals[$currentPeriodeBulan]['total_lahir_laki'] ?></td>
+            <td><?= $totals[$currentPeriodeBulan]['total_lahir_perempuan'] ?></td>
+            <td><?= $totals[$currentPeriodeBulan]['total_mati_laki'] ?></td>
+            <td><?= $totals[$currentPeriodeBulan]['total_mati_perempuan'] ?></td>
+            <td><?= $totals[$currentPeriodeBulan]['total_pendatang_laki'] ?></td>
+            <td><?= $totals[$currentPeriodeBulan]['total_pendatang_perempuan'] ?></td>
+            <td><?= $totals[$currentPeriodeBulan]['total_pindah_laki'] ?></td>
+            <td><?= $totals[$currentPeriodeBulan]['total_pindah_perempuan'] ?></td>
+            <td><?= $totals[$currentPeriodeBulan]['total_awal_kk'] ?></td>
+            <td><?= $totals[$currentPeriodeBulan]['total_akhir_laki'] ?></td>
+            <td><?= $totals[$currentPeriodeBulan]['total_akhir_perempuan'] ?></td>
+        </tr>
+    <?php } ?>

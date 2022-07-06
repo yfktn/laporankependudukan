@@ -32,6 +32,6 @@ class Desa extends Controller
     {
         parent::__construct();
 
-        BackendMenu::setContext('Yfktn.LaporanKependudukan', 'laporankependudukan', 'desa');
+        BackendMenu::setContext('Yfktn.LaporanKependudukan', 'laporankependudukan', 'sidemenu-desa');
     }
 }

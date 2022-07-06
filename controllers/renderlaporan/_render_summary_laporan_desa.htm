@@ -1,0 +1,69 @@
+<style>
+tr td { text-align: right; }
+tr td.label { text-align: left; }
+</style>
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th rowspan="2">Desa</th>
+            <th rowspan="2">Periode Bulan</th>
+            <th colspan="2">Jumlah Awal</th>
+            <th colspan="2">Jumlah Lahir</th>
+            <th colspan="2">Jumlah Mati</th>
+            <th colspan="2">Jumlah Pendatang</th>
+            <th colspan="2">Jumlah Pindah</th>
+            <th colspan="2">Jumlah Akhir</th>
+            <th colspan="2">Jumlah Total</th>
+        </tr>
+        <tr>
+            <th>Laki</th>
+            <th>Perempuan</th>
+            <th>Laki</th>
+            <th>Perempuan</th>
+            <th>Laki</th>
+            <th>Perempuan</th>
+            <th>Laki</th>
+            <th>Perempuan</th>
+            <th>Laki</th>
+            <th>Perempuan</th>
+            <th>Laki</th>
+            <th>Perempuan</th>
+            <th>Laki</th>
+            <th>Perempuan</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php $currDesa = "" ?>
+        <?php foreach($dataTable as $key=>$data): ?>
+            <?php list($slug, $namaDesa) = explode("|", $key) ?>
+            <?php list($totalLaki, $totalPerempuan) = [0,0] ?>
+            <?php foreach($data as $bulan=>$dataJumlah): ?>
+            <tr>
+                <?php 
+                    $totalLaki += $dataJumlah['jumlah_akhir_laki'];
+                    $totalPerempuan += $dataJumlah['jumlah_akhir_perempuan'];
+                ?>
+                <?php if($currDesa == "" || $currDesa != $slug): ?>
+                    <td class="label" rowspan="12"><?= $namaDesa ?></td>
+                    <?php $currDesa = $slug ?>
+                <?php endif ?>
+                <td class="label"><?= \Yfktn\LaporanKependudukan\Classes\PeriodeBulan::namaBulan($bulan) ?></td>
+                <td><?= $dataJumlah['jumlah_awal_laki'] ?></td>
+                <td><?= $dataJumlah['jumlah_awal_perempuan'] ?></td>
+                <td><?= $dataJumlah['jumlah_lahir_laki'] ?></td>
+                <td><?= $dataJumlah['jumlah_lahir_perempuan'] ?></td>
+                <td><?= $dataJumlah['jumlah_mati_laki'] ?></td>
+                <td><?= $dataJumlah['jumlah_mati_perempuan'] ?></td>
+                <td><?= $dataJumlah['jumlah_pendatang_laki'] ?></td>
+                <td><?= $dataJumlah['jumlah_pendatang_perempuan'] ?></td>
+                <td><?= $dataJumlah['jumlah_pindah_laki'] ?></td>
+                <td><?= $dataJumlah['jumlah_pindah_perempuan'] ?></td>
+                <td><?= $dataJumlah['jumlah_akhir_laki'] ?></td>
+                <td><?= $dataJumlah['jumlah_akhir_perempuan'] ?></td>
+                <td><?= $totalLaki ?></td>
+                <td><?= $totalPerempuan ?></td>
+            </tr>
+            <?php endforeach ?>
+        <?php endforeach ?>
+    </tbody>
+</table>

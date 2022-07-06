@@ -103,6 +103,14 @@ class Plugin extends PluginBase
                         // 'counter'     => 2,
                         // 'counterLabel'=> 'Label describing a static menu counter',
                     ],
+                    'sidemenu-render' => [
+                        'label'       => 'Render Laporan',
+                        'icon'        => 'icon-industry',
+                        'url'         => Backend::url('yfktn/laporankependudukan/renderlaporan/create'),
+                        'permissions' => ['yfktn.laporankependudukan.*'],
+                        // 'counter'     => 2,
+                        // 'counterLabel'=> 'Label describing a static menu counter',
+                    ],
                     // 'categories' => [
                     //     'label'       => 'Categories',
                     //     'icon'        => 'icon-copy',

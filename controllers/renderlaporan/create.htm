@@ -1,0 +1,51 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('yfktn/laporankependudukan/laporankependudukan') ?>">Laporan Kependudukan</a></li>
+        <li>Render Laporan Kependudukan</li>
+    </ul>
+<?php Block::endPut() ?>
+<div class="control-tabs primary-tabs" data-control="tab">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#primaryTabOne">Form Pilihan</a></li>
+        <li><a href="#primaryTabTwo">Hasil Render</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active">
+            <?php if (!$this->fatalError): ?>
+
+                <?= Form::open(['class' => 'layout']) ?>
+
+                    <div class="layout-row">
+                        <?= $this->formRender() ?>
+                    </div>
+
+                    <div class="form-buttons">
+                        <div class="loading-indicator-container">
+                            <button
+                                type="submit"
+                                data-request="onClickRenderLaporanPeriode"
+                                data-hotkey="ctrl+s, cmd+s"
+                                data-load-indicator="Creating LaporanKependudukan..."
+                                class="btn btn-primary">
+                                Render Laporan
+                            </button>
+                            <span class="btn-text">
+                                or <a href="<?= Backend::url('yfktn/laporankependudukan/laporankependudukan') ?>">Cancel</a>
+                            </span>
+                        </div>
+                    </div>
+
+                <?= Form::close() ?>
+
+            <?php else: ?>
+
+                <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+                <p><a href="<?= Backend::url('yfktn/laporankependudukan/laporankependudukan') ?>" class="btn btn-default">Return to laporan kependudukan list</a></p>
+
+            <?php endif ?>
+        </div>
+        <div class="tab-pane">
+            <div id="hasilRender">Menunggu pilihan dan proses render.</div>
+        </div>
+    </div>
+</div>
