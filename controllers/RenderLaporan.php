@@ -29,6 +29,8 @@ class RenderLaporan extends Controller
 
     public $formConfig = 'config_form.yaml';
 
+    public $publicActions = ['summaryLaporanDesa'];
+
     public function __construct()
     {
         parent::__construct();
@@ -138,6 +140,25 @@ class RenderLaporan extends Controller
         return [
             '#hasilRender' => $this->makePartial('render_summary_laporan_desa')
         ];
+    }
+
+    /**
+     * Supaya tidak dua tiga kali bikin setting, makanya berikan ini supaya bisa di load
+     * oleh yang lain, agar bisa mendapatkan report yang telah digenerate.
+     * @param mixed $periodeTahun 
+     * @param mixed $desaId 
+     * @return Response|ResponseFactory 
+     * @throws ApplicationException 
+     * @throws Exception 
+     * @throws BindingResolutionException 
+     */
+    public function summaryLaporanDesa($periodeTahun, $desaId = null)
+    {
+        $this->layout = "report";
+        $this->reportRingkasanFactory = new ReportSummaryDesaFactory;
+        return response(
+            $this->summary_laporan_desa([ 'desa'=>$desaId, 'periode_tahun' => $periodeTahun], true)
+        );
     }
 
     /**

@@ -27,7 +27,7 @@ inner join (
 where l.periode_tahun = ?
 QRY;
         $daftarDesa = Desa::selectRaw("id, nama, slug");
-        trace_log($pilihanDesa, count($pilihanDesa));
+        
         if(count($pilihanDesa) > 0) {
             // ini lebih dari satu desa maka generate query supaya bisa memilih semua 
             // gunakan or 

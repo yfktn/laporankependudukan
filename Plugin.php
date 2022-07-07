@@ -50,10 +50,8 @@ class Plugin extends PluginBase
      */
     public function registerComponents()
     {
-        return []; // Remove this line to activate
-
         return [
-            'Yfktn\LaporanKependudukan\Components\MyComponent' => 'myComponent',
+            'Yfktn\LaporanKependudukan\Components\TampilSummary' => 'tampilSummary',
         ];
     }
 
