@@ -25,7 +25,7 @@ SQLQUERY;
             $sql .= ' and l.periode_bulan = ?';
             $parameters[] = $pilihanPeriodeBulan;
         }
-        $sql .= " order by l.periode_bulan";
+        $sql .= " order by l.periode_bulan, rtrw.nama_rtrw";
         return Db::select($sql, $parameters);
     }
 
