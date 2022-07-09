@@ -11,16 +11,22 @@ class ReportPeriodeFactory
      * @param mixed $pilihanPeriodeTahun 
      * @return mixed 
      */
-    public function laporanDesaPeriode($pilihanDesa, $pilihanPeriodeTahun)
+    public function laporanDesaPeriode($pilihanDesa, $pilihanPeriodeTahun, $pilihanPeriodeBulan = null)
     {
-        
+        $parameters = [];
+        $parameters[] = $pilihanDesa;
+        $parameters[] = $pilihanPeriodeTahun;
         $sql = <<<SQLQUERY
 select l.periode_bulan, l.periode_tahun, rtrw.* from yfktn_laporankependudukan_ l
 inner join yfktn_laporankependudukan_rtrw rtrw on rtrw.laporan_kependudukan_id = l.id
 where l.desa_id = ? and l.periode_tahun = ?
-order by l.periode_bulan
 SQLQUERY;
-        return Db::select($sql, [$pilihanDesa, $pilihanPeriodeTahun]);
+        if($pilihanPeriodeBulan !== null) {
+            $sql .= ' and l.periode_bulan = ?';
+            $parameters[] = $pilihanPeriodeBulan;
+        }
+        $sql .= " order by l.periode_bulan";
+        return Db::select($sql, $parameters);
     }
 
     /**

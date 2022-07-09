@@ -1,7 +1,8 @@
 columns:
     nama_rtrw:
-        label: nama_rtrw
-        type: text
+        label: Nama RTRW
+        type: partial
+        path: $/yfktn/laporankependudukan/models/laporankependudukandirtrw/_nama_rtrw.htm
     # laporan_kependudukan_id:
     #     label: laporan_kependudukan_id
     #     type: number

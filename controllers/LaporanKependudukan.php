@@ -3,6 +3,7 @@
 use BackendMenu;
 use Backend\Classes\Controller;
 use Illuminate\Database\Eloquent\Builder;
+use Yfktn\LaporanKependudukan\Models\LaporanKependudukan as ModelsLaporanKependudukan;
 
 /**
  * Laporan Kependudukan Back-end Controller
@@ -43,5 +44,14 @@ class LaporanKependudukan extends Controller
                 $query->where('user_id', $this->user->id);
             });
         }
+    }
+
+    public function update($recordId, $context = null)
+    {
+        $record = ModelsLaporanKependudukan::findOrFail($recordId);
+        $this->vars['desaId'] = $record->desa_id;
+        $this->vars['periodeTahun'] = $record->periode_tahun;
+        $this->vars['periodeBulan'] = $record->periode_bulan;
+        return $this->asExtension('FormController')->update($recordId, $context);
     }
 }

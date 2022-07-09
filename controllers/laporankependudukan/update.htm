@@ -33,6 +33,17 @@
                     class="btn btn-default">
                     Save and Close
                 </button>
+                <?php 
+                $urlPeriodePopup = "yfktn/laporankependudukan/renderlaporan/popupLaporanDesaBerdasarkanPeriode/{$periodeTahun}/{$desaId}/{$periodeBulan}";
+                ?>
+                <a
+                    data-size="giant"
+                    data-control="popup"
+                    data-ajax="<?= Backend::url($urlPeriodePopup) ?>"
+                    href="javascript:;"
+                    class="btn btn-default">
+                    Check Laporan Periode
+                </a>
                 <button
                     type="button"
                     class="oc-icon-trash-o btn-icon danger pull-right"

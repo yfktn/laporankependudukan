@@ -3,7 +3,7 @@ fields:
         label: 'Nama RT/RW'
         comment: Selalu konsisten dalam penamaan untuk memudahkan proses pelaporan.
         span: full
-        type: text
+        type: dropdown
 tabs:
     fields:
         hint2:

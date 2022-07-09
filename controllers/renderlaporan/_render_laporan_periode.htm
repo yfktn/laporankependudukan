@@ -1,3 +1,6 @@
+<?php if($sebagaiPopup): ?>
+    <?= $this->makePartial('render_popup_header', ['judul' => 'Laporan kependudukan']) ?>
+<?php endif ?>
 <style>
 tr th { text-align: right; }
 tr td { text-align: right; }
@@ -47,6 +50,7 @@ $currentPeriodeBulan = 0;
         </tr>
     </thead>
     <tbody>
+        <?php $romanRenderer = new \Yfktn\LaporanKependudukan\Classes\NamaRTRWRender; ?>
         <?php foreach($dataDesa as $data): ?>
             <?php if($currentPeriodeBulan == 0 || $currentPeriodeBulan != $data->periode_bulan): ?>
                 <?php if($currentPeriodeBulan != 0): ?>
@@ -60,7 +64,7 @@ $currentPeriodeBulan = 0;
                 </tr>
             <?php endif ?>
             <tr>
-                <td><?= $data->nama_rtrw ?></td>
+                <td><?= $romanRenderer->getLabelOf($data->nama_rtrw) ?></td>
                 <td><?= $data->jumlah_awal_kk ?></td>
                 <td><?= $data->jumlah_awal_laki ?></td>
                 <td><?= $data->jumlah_awal_perempuan ?></td>
@@ -109,3 +113,6 @@ $currentPeriodeBulan = 0;
             <td><?= $totals[$currentPeriodeBulan]['total_akhir_perempuan'] ?></td>
         </tr>
     <?php } ?>
+<?php if($sebagaiPopup): ?>
+    <?= $this->makePartial('render_popup_footer') ?>
+<?php endif ?>

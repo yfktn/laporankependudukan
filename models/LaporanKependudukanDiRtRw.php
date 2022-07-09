@@ -3,6 +3,7 @@
 use Illuminate\Database\Eloquent\Builder;
 use Model;
 use October\Rain\Exception\ApplicationException;
+use Yfktn\LaporanKependudukan\Classes\RomanRTRWTrait;
 
 /**
  * Model
@@ -10,6 +11,7 @@ use October\Rain\Exception\ApplicationException;
 class LaporanKependudukanDiRtRw extends Model
 {
     use \October\Rain\Database\Traits\Validation;
+    use RomanRTRWTrait;
     
 
     /**

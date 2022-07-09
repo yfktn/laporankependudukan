@@ -29,7 +29,7 @@ class RenderLaporan extends Controller
 
     public $formConfig = 'config_form.yaml';
 
-    public $publicActions = ['summaryLaporanDesa'];
+    public $publicActions = ['summaryLaporanDesa', 'popupLaporanDesaBerdasarkanPeriode'];
 
     public function __construct()
     {
@@ -73,13 +73,15 @@ class RenderLaporan extends Controller
             throw new ApplicationException("Jenis laporan ini membutuhkan data desa, dan desa belum dipilih! Mohon dipilih dulu desanya.");
         }
         $totals = [];
-        $dbSelectQuery = $this->reportPeriodeFactory->laporanDesaPeriode($pilihanUser['desa'], $pilihanUser['periode_tahun']);
+        $dbSelectQuery = $this->reportPeriodeFactory->laporanDesaPeriode(
+            $pilihanUser['desa'], $pilihanUser['periode_tahun'], ($pilihanUser['periode_bulan']??null));
         $this->reportPeriodeFactory->hitungkanTotal($totals, $dbSelectQuery);
         $this->vars['dataDesa'] = $dbSelectQuery;
         $this->vars['desaId'] = $pilihanUser['desa'];
         $this->vars['periodeTahun'] = $pilihanUser['periode_tahun'];
         $this->vars['totals'] = $totals;
         $this->vars['tampilDownload'] = $tampilDownload;
+        $this->vars['sebagaiPopup'] = isset($this->vars['sebagaiPopup'])? $this->vars['sebagaiPopup']: false;
         // sekarang untuk nama desa
         $this->vars['dataMasterDesa'] = Desa::selectRaw("id, nama, slug")->find($pilihanUser['desa']);
         if($tampilDownload) {
@@ -89,6 +91,28 @@ class RenderLaporan extends Controller
         return [
             '#hasilRender' => $this->makePartial('render_laporan_periode')
         ];
+    }
+    
+    /**
+     * Tampilkan sebagai popup laporan desa berdasarkan periode!
+     * @param mixed $periodeTahun 
+     * @param mixed $desaId 
+     * @param mixed $periodeBulan 
+     * @return Response|ResponseFactory 
+     * @throws ApplicationException 
+     * @throws Exception 
+     * @throws BindingResolutionException 
+     */
+    public function popupLaporanDesaBerdasarkanPeriode($periodeTahun, $desaId = null, $periodeBulan = null)
+    {
+        $this->reportPeriodeFactory = new ReportPeriodeFactory;
+        $this->vars['sebagaiPopup'] = true;
+        return response(
+            $this->laporan_desa_berdasarkan_periode([ 
+                    'desa'=>$desaId, 'periode_tahun' => $periodeTahun, 'periode_bulan' => $periodeBulan
+                ], 
+                true)
+        );
     }
 
     /**
@@ -102,7 +126,6 @@ class RenderLaporan extends Controller
      */
     public function downloadLaporanDesaBerdasarkanPeriode($periodeTahun, $desaId = null)
     {
-        $this->layout = "report";
         $this->reportPeriodeFactory = new ReportPeriodeFactory;
         return response(
             $this->laporan_desa_berdasarkan_periode([ 'desa'=>$desaId, 'periode_tahun' => $periodeTahun], true), 
