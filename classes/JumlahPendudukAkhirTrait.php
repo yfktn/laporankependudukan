@@ -3,7 +3,8 @@
 trait JumlahPendudukAkhirTrait 
 {
     /**
-     * Dapatkan jumlah penduduk akhir berdasarkan isian pergerakan kependudukan.
+     * Dapatkan jumlah penduduk akhir berdasarkan isian pergerakan kependudukan yang 
+     * diwakili oleh $ownerObjModel sebagai model yang mewakili nilai database.
      * Kembalian fungsi ini akan mengembalikan array assoc
      * [
      *   'KK' => jumlah KK
