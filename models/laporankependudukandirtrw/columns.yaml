@@ -27,11 +27,17 @@ columns:
     jumlah_mati_perempuan:
         label: jumlah_mati_perempuan
         type: number
+    jumlah_pendatang_kk:
+        label: jumlah_pendatang_kk
+        type: number
     jumlah_pendatang_laki:
         label: jumlah_pendatang_laki
         type: number
     jumlah_pendatang_perempuan:
         label: jumlah_pendatang_perempuan
+        type: number
+    jumlah_pindah_kk:
+        label: jumlah_pindah_kk
         type: number
     jumlah_pindah_laki:
         label: jumlah_pindah_laki

@@ -1,7 +1,7 @@
 fields:
     nama_rtrw:
         label: 'Nama RT/RW'
-        comment: Selalu konsisten dalam penamaan untuk memudahkan proses pelaporan.
+        comment: 'Selalu konsisten dalam penamaan untuk memudahkan proses pelaporan.'
         span: full
         type: dropdown
 tabs:
@@ -79,6 +79,25 @@ tabs:
             span: auto
             type: number
             default: 0
+            tab: Pencatatan
+        sectionkk:
+            label: 'Pergerakan KK'
+            span: full
+            type: section
+            tab: Pencatatan
+        jumlah_pendatang_kk:
+            label: 'Penambahan KK Karena Pendatang'
+            default: 0
+            span: auto
+            type: number
+            comment: 'Jumlah KK bertambah karena adanya pendatang.'
+            tab: Pencatatan
+        jumlah_pindah_kk:
+            label: 'Pengurangan KK Karena Pindah'
+            default: 0
+            span: auto
+            type: number
+            comment: 'Jumlah KK berkurang karena adanya penduduk pindah keluar daerah.'
             tab: Pencatatan
         hint1:
             label: 'Tentang isian ini'

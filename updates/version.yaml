@@ -11,3 +11,6 @@
 1.0.5:
     - 'Created table yfktn_laporankependudukan_operator_desa'
     - builder_table_create_yfktn_laporankependudukan_operator_desa.php
+1.0.6:
+    - 'Pergerakan KK di yfktn_laporankependudukan_rtrw'
+    - builder_table_update_yfktn_laporankependudukan_rtrw.php

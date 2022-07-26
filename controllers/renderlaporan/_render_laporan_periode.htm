@@ -28,22 +28,30 @@ $currentPeriodeBulan = 0;
             <th colspan="3">Jumlah Awal</th>
             <th colspan="2">Jumlah Lahir</th>
             <th colspan="2">Jumlah Mati</th>
-            <th colspan="2">Jumlah Pendatang</th>
-            <th colspan="2">Jumlah Pindah</th>
+            <th colspan="3">Jumlah Pendatang</th>
+            <th colspan="3">Jumlah Pindah</th>
             <th colspan="3">Jumlah Akhir</th>
         </tr>
         <tr>
+            <!-- Jumlah Awal -->
             <th>KK</th>
             <th>Laki</th>
             <th>Perempuan</th>
+            <!-- Jumlah Lahir -->
             <th>Laki</th>
             <th>Perempuan</th>
+            <!-- Jumlah Mati -->
             <th>Laki</th>
             <th>Perempuan</th>
+            <!-- Jumlah Pendatang -->
+            <th>KK</th>
             <th>Laki</th>
             <th>Perempuan</th>
+            <!-- Jumlah Pindah -->
+            <th>KK</th>
             <th>Laki</th>
             <th>Perempuan</th>
+            <!-- Jumlah Akhir -->
             <th>KK</th>
             <th>Laki</th>
             <th>Perempuan</th>
@@ -72,17 +80,15 @@ $currentPeriodeBulan = 0;
                 <td><?= $data->jumlah_lahir_perempuan ?></td>
                 <td><?= $data->jumlah_mati_laki ?></td>
                 <td><?= $data->jumlah_mati_perempuan ?></td>
+                <td><?= $data->jumlah_pendatang_kk ?></td>
                 <td><?= $data->jumlah_pendatang_laki ?></td>
                 <td><?= $data->jumlah_pendatang_perempuan ?></td>
+                <td><?= $data->jumlah_pindah_kk ?></td>
                 <td><?= $data->jumlah_pindah_laki ?></td>
                 <td><?= $data->jumlah_pindah_perempuan ?></td>
-                <td><?= $data->jumlah_awal_kk ?></td>
-                <td>
-                    <?= $data->jumlah_awal_laki + $data->jumlah_lahir_laki - $data->jumlah_mati_laki + $data->jumlah_pendatang_laki - $data->jumlah_pindah_laki ?>
-                </td>
-                <td>
-                    <?= $data->jumlah_awal_perempuan + $data->jumlah_lahir_perempuan - $data->jumlah_mati_perempuan + $data->jumlah_pendatang_perempuan - $data->jumlah_pindah_perempuan ?>
-                </td>
+                <td><?= $data->jumlah_akhir_kk ?></td>
+                <td><?= $data->jumlah_akhir_laki ?></td>
+                <td><?= $data->jumlah_akhir_perempuan ?></td>
             </tr>
         <?php endforeach ?>
         <?php cetakTotalakhir($currentPeriodeBulan, $totals) ?>
@@ -104,11 +110,13 @@ $currentPeriodeBulan = 0;
             <td><?= $totals[$currentPeriodeBulan]['total_lahir_perempuan'] ?></td>
             <td><?= $totals[$currentPeriodeBulan]['total_mati_laki'] ?></td>
             <td><?= $totals[$currentPeriodeBulan]['total_mati_perempuan'] ?></td>
+            <td><?= $totals[$currentPeriodeBulan]['total_pendatang_kk'] ?></td>
             <td><?= $totals[$currentPeriodeBulan]['total_pendatang_laki'] ?></td>
             <td><?= $totals[$currentPeriodeBulan]['total_pendatang_perempuan'] ?></td>
+            <td><?= $totals[$currentPeriodeBulan]['total_pindah_kk'] ?></td>
             <td><?= $totals[$currentPeriodeBulan]['total_pindah_laki'] ?></td>
             <td><?= $totals[$currentPeriodeBulan]['total_pindah_perempuan'] ?></td>
-            <td><?= $totals[$currentPeriodeBulan]['total_awal_kk'] ?></td>
+            <td><?= $totals[$currentPeriodeBulan]['total_akhir_kk'] ?></td>
             <td><?= $totals[$currentPeriodeBulan]['total_akhir_laki'] ?></td>
             <td><?= $totals[$currentPeriodeBulan]['total_akhir_perempuan'] ?></td>
         </tr>

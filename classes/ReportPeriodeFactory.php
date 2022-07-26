@@ -4,6 +4,7 @@ use Db;
 
 class ReportPeriodeFactory
 {
+    use JumlahPendudukAkhirTrait;
     /**
      * lakukan query ke database untuk mendapatkan nilai laporan untuk desa terpilih dlan
      * periode tahun yang ingin diambil laporannya.
@@ -48,8 +49,10 @@ SQLQUERY;
                     'total_lahir_perempuan' => 0,
                     'total_mati_laki' => 0,
                     'total_mati_perempuan' => 0,
+                    'total_pendatang_kk' => 0,
                     'total_pendatang_laki' => 0,
                     'total_pendatang_perempuan' => 0,
+                    'total_pindah_kk' => 0,
                     'total_pindah_laki' => 0,
                     'total_pindah_perempuan' => 0,
                     'total_akhir_kk' => 0,
@@ -65,17 +68,23 @@ SQLQUERY;
             $totals[$currPeriodeBulan]['total_lahir_perempuan'] += $h->jumlah_lahir_perempuan;
             $totals[$currPeriodeBulan]['total_mati_laki'] += $h->jumlah_mati_laki;
             $totals[$currPeriodeBulan]['total_mati_perempuan'] += $h->jumlah_mati_perempuan;
+            $totals[$currPeriodeBulan]['total_pendatang_kk'] += $h->jumlah_pendatang_kk;
             $totals[$currPeriodeBulan]['total_pendatang_laki'] += $h->jumlah_pendatang_laki;
             $totals[$currPeriodeBulan]['total_pendatang_perempuan'] += $h->jumlah_pendatang_perempuan;
+            $totals[$currPeriodeBulan]['total_pindah_kk'] += $h->jumlah_pindah_kk;
             $totals[$currPeriodeBulan]['total_pindah_laki'] += $h->jumlah_pindah_laki;
             $totals[$currPeriodeBulan]['total_pindah_perempuan'] += $h->jumlah_pindah_perempuan;
-            $totals[$currPeriodeBulan]['total_akhir_kk'] += $h->jumlah_awal_kk;
-            $totals[$currPeriodeBulan]['total_akhir_perempuan'] += (
-                $h->jumlah_awal_perempuan + $h->jumlah_lahir_perempuan - $h->jumlah_mati_perempuan + $h->jumlah_pendatang_perempuan - $h->jumlah_pindah_perempuan
-            );
-            $totals[$currPeriodeBulan]['total_akhir_laki'] += (
-                $h->jumlah_awal_laki + $h->jumlah_lahir_laki - $h->jumlah_mati_laki + $h->jumlah_pendatang_laki - $h->jumlah_pindah_laki
-            );
+            // hitung jumlah akhirnya
+            $jumlahAkhir = $this->dapatkanJumlahPendudukAkhir($h);
+            // tambahkan jumlah akhir
+            $h->jumlah_akhir_kk = $jumlahAkhir['KK'];
+            $h->jumlah_akhir_perempuan = $jumlahAkhir['P'];
+            $h->jumlah_akhir_laki = $jumlahAkhir['L'];
+            trace_log($totals[$currPeriodeBulan]);
+            // masukkan ke dalam total akhir!
+            $totals[$currPeriodeBulan]['total_akhir_kk'] += $jumlahAkhir['KK'];
+            $totals[$currPeriodeBulan]['total_akhir_perempuan'] += $jumlahAkhir['P'];
+            $totals[$currPeriodeBulan]['total_akhir_laki'] += $jumlahAkhir['L'];
         }
     }
 }

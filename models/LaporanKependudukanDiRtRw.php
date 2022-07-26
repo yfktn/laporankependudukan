@@ -3,6 +3,7 @@
 use Illuminate\Database\Eloquent\Builder;
 use Model;
 use October\Rain\Exception\ApplicationException;
+use Yfktn\LaporanKependudukan\Classes\JumlahPendudukAkhirTrait;
 use Yfktn\LaporanKependudukan\Classes\RomanRTRWTrait;
 
 /**
@@ -12,7 +13,7 @@ class LaporanKependudukanDiRtRw extends Model
 {
     use \October\Rain\Database\Traits\Validation;
     use RomanRTRWTrait;
-    
+    use JumlahPendudukAkhirTrait;
 
     /**
      * @var string The database table used by the model.
@@ -33,6 +34,8 @@ class LaporanKependudukanDiRtRw extends Model
         'jumlah_pendatang_perempuan' => 'required|numeric|min:0',
         'jumlah_pindah_laki' => 'required|numeric|min:0',
         'jumlah_pindah_perempuan' => 'required|numeric|min:0',
+        'jumlah_pindah_kk' => 'required|numeric|min:0',
+        'jumlah_pendatang_kk' => 'required|numeric|min:0',
     ];
 
     public $belongsTo = [
@@ -41,22 +44,6 @@ class LaporanKependudukanDiRtRw extends Model
             'key' => 'laporan_kependudukan_id'
         ]
     ];
-
-    /**
-     * dapatkan jumlah penduduk akhirnya berdasarkan jumlah penduduk awal.
-     * @return array 
-     */
-    public function dapatkanJumlahPendudukAkhir()
-    {
-        $L = $this->jumlah_awal_laki + $this->jumlah_lahir_laki - $this->jumlah_mati_laki - $this->jumlah_pindah_laki;
-        $P = $this->jumlah_awal_perempuan + $this->jumlah_lahir_perempuan - $this->jumlah_mati_perempuan - $this->jumlah_pindah_perempuan;
-        return [
-            'KK' => $this->jumlah_awal_kk,
-            'L'  => $L,
-            'P'  => $P,
-            'LP' => $L + $P 
-        ];
-    }
 
     public function dapatkanRTRWPeriodeSebelumnya(
         LaporanKependudukan $laporanKependudukan,
@@ -143,6 +130,11 @@ class LaporanKependudukanDiRtRw extends Model
         return true;
     }
 
+    /**
+     * Pastikan nilai yang masuk sudah valid!
+     * @return false|void 
+     * @throws ApplicationException 
+     */
     public function beforeSave()
     {
         // check untuk nilai posisi awal kependudukan
@@ -152,11 +144,14 @@ class LaporanKependudukanDiRtRw extends Model
             throw new ApplicationException($error);
             return false;
         }
-        // sekarang check apakah ada nama RT RW yang double?
-        $jumlahNamaRTRWyangSama = LaporanKependudukanDiRtRw::where('nama_rtrw', $this->nama_rtrw)
-            ->where('laporan_kependudukan_id', $this->laporan_kependudukan_id)->count();
-        if($jumlahNamaRTRWyangSama + 1 > 1) { // jumlah 1 karena plus ini yang belum disimpan!
-            throw new ApplicationException("Nama RT/RW tidak boleh sama pada periode pengisian yang sama! Nama '{$this->nama_rtrw_label}' telah ada dicatatkan sebelumnya!");
+        // check bila nama_rtrw dirubah!
+        if($this->isDirty('nama_rtrw')) {
+            // sekarang check apakah ada nama RT RW yang double?
+            $jumlahNamaRTRWyangSama = LaporanKependudukanDiRtRw::where('nama_rtrw', $this->nama_rtrw)
+                ->where('laporan_kependudukan_id', $this->laporan_kependudukan_id)->count();
+            if($jumlahNamaRTRWyangSama + 1 > 1) { // jumlah 1 karena plus ini yang belum disimpan!
+                throw new ApplicationException("Nama RT/RW tidak boleh sama pada periode pengisian yang sama! Nama '{$this->nama_rtrw_label}' telah ada dicatatkan sebelumnya!");
+            }
         }
     }
 }
