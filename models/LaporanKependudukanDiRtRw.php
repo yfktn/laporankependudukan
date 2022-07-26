@@ -58,22 +58,14 @@ class LaporanKependudukanDiRtRw extends Model
         ];
     }
 
-    /**
-     * Lakukan perhitungan terhadap posisi awal kependudukan. Lakukan proses perhitungan bila
-     * semua nilainya adalah 0 untuk pengisian posisi awal.
-     */
-    protected function prosesPosisiAwalKependudukan(&$error)
+    public function dapatkanRTRWPeriodeSebelumnya(
+        LaporanKependudukan $laporanKependudukan,
+        $namaRtRw, $namaRtRwLabel,
+        &$error)
     {
-        if(!($this->jumlah_awal_kk <= 0 
-            && $this->jumlah_awal_laki <= 0 
-            && $this->jumlah_awal_perempuan <= 0)
-        ) {
-            // perhitungan dari periode sebelumnya hanya dilakukan
-            // bila semua nilai awal adalah 0, berarti ini menyimpan isian!
-            return true;
-        }
+        
         // dapatkan periode laporan kependudukan saat ini
-        $laporanKependudukan = $this->laporanKependudukan;
+        // $laporanKependudukan = $this->laporanKependudukan;
         $periodeBulan = $laporanKependudukan->periode_bulan;
         $periodeTahun = $laporanKependudukan->periode_tahun;
         $desaIdNya = $laporanKependudukan->desa_id;
@@ -90,14 +82,60 @@ class LaporanKependudukanDiRtRw extends Model
                         ->where('periode_tahun', $periodeTahun)
                         ->where('desa_id', $desaIdNya);
                 })
-            ->where('nama_rtrw', $this->nama_rtrw)
+            ->where('nama_rtrw', $namaRtRw)
             ->first();
         if($periodeSebelumnya == null) {
-            $error = "Gagal mendapatkan periode sebelumnya untuk RTRW {$this->nama_rtrw}, check bila isian jumlah untuk periode sebelumnya pada RTRW {$this->nama_rtrw} telah terisi!";
+            $error = "Gagal mendapatkan periode sebelumnya untuk RTRW {$namaRtRwLabel}, check bila isian jumlah untuk periode sebelumnya pada RTRW {$this->nama_rtrw} telah terisi!";
             trace_log($error);
+        }
+        return $periodeSebelumnya;
+    }
+
+    /**
+     * Lakukan perhitungan terhadap posisi awal kependudukan. Lakukan proses perhitungan bila
+     * semua nilainya adalah 0 untuk pengisian posisi awal.
+     * Bila diisikan untuk pengisian awal, pastikan bahwa nilainya sinkron dengan nilai akhir
+     * dari satu periode sebelumnya.
+     */
+    protected function prosesPosisiAwalKependudukan(&$error)
+    {
+        // dapatkan lebih dulu periode sebelumnya!
+        $periodeSebelumnya = $this->dapatkanRTRWPeriodeSebelumnya($this->laporanKependudukan,
+            $this->nama_rtrw,
+            $this->nama_rtrw_label,
+             $error);
+        // dapatkan jumlah akhir periode sebelumnya!
+        $jumlahPendudukAkhirPeriodeSebelumya = [];
+        if($periodeSebelumnya != null) {
+            $jumlahPendudukAkhirPeriodeSebelumya = $periodeSebelumnya->dapatkanJumlahPendudukAkhir();
+        }
+        // check isian awal!
+        if(!($this->jumlah_awal_kk <= 0 
+            && $this->jumlah_awal_laki <= 0 
+            && $this->jumlah_awal_perempuan <= 0)
+        ) {
+            // mari lakukan pengecekan terhadap nilai yang sebelumnya untuk melakukan check, 
+            // apakah nilai yang dimasukkan saat ini sudah benar? dan sesuai dengan nilai akhir
+            // pada periode sebelumnya?
+            if($periodeSebelumnya == null) {
+                // berarti ini tidak ada inputan sebelumnya, bisa kita asumsikan merupakan nilai
+                // awal, jadi anggap benar. Kita hanya mengambil mundur 1 ... 
+                return true;
+            }
+            if(
+                (int) $this->jumlah_awal_kk != (int) $jumlahPendudukAkhirPeriodeSebelumya['KK'] 
+                || (int) $this->jumlah_awal_laki != (int) $jumlahPendudukAkhirPeriodeSebelumya['L']
+                || (int) $this->jumlah_awal_perempuan != (int) $jumlahPendudukAkhirPeriodeSebelumya['P'] 
+                ) {
+                $error = "Nilai awal diisikan tidak sinkron dengan nilai akhir dari satu periode sebelumnya! Coba klik Check Laporan Periode!";
+                return false;
+            }
+            return true;
+        }
+        // sekarang memasukkan nilai baru!
+        if($periodeSebelumnya == null) {
             return false;
         }
-        $jumlahPendudukAkhirPeriodeSebelumya = $periodeSebelumnya->dapatkanJumlahPendudukAkhir();
         // sekarang masukkan ke nilainya
         $this->jumlah_awal_kk = $jumlahPendudukAkhirPeriodeSebelumya['KK'];
         $this->jumlah_awal_laki = $jumlahPendudukAkhirPeriodeSebelumya['L'];
@@ -113,6 +151,12 @@ class LaporanKependudukanDiRtRw extends Model
         if(!$checkNilaiAwal) {
             throw new ApplicationException($error);
             return false;
+        }
+        // sekarang check apakah ada nama RT RW yang double?
+        $jumlahNamaRTRWyangSama = LaporanKependudukanDiRtRw::where('nama_rtrw', $this->nama_rtrw)
+            ->where('laporan_kependudukan_id', $this->laporan_kependudukan_id)->count();
+        if($jumlahNamaRTRWyangSama + 1 > 1) { // jumlah 1 karena plus ini yang belum disimpan!
+            throw new ApplicationException("Nama RT/RW tidak boleh sama pada periode pengisian yang sama! Nama '{$this->nama_rtrw_label}' telah ada dicatatkan sebelumnya!");
         }
     }
 }
